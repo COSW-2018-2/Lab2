@@ -17,6 +17,13 @@ export class APIService {
     public http: Http
   ) { }
 
+  get(url: string, options?: any): Observable<any> {
+    return this.http
+      .get(`${this.config.apiURL}/${url}`, this.getRequestOptions(options))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   post(url: string, body: any, options?: any): Observable<any> {
     return this.http
       .post(`${this.config.apiURL}/${url}`, body, this.getRequestOptions(options))
